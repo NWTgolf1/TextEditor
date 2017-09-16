@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace TextEditorProject
 {
     public partial class Form1 : Form
     {
+        string RememberFileName;
 
         public Form1()
         {
@@ -21,7 +23,9 @@ namespace TextEditorProject
 
         bool wordwrap = false;
 
-        //Event handler for click on File for File DropDown Menu
+        bool FindText = false;
+
+        //Event handler to open a file for File DropDown Menu
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string s = "";
@@ -30,6 +34,7 @@ namespace TextEditorProject
             if (result == DialogResult.OK)
             {
                 s = openFileDialog1.FileName;
+                RememberFileName = openFileDialog1.FileName;
             }
 
             string file_data = File.ReadAllText(s);
@@ -41,17 +46,23 @@ namespace TextEditorProject
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Check if remember File Name
+            if (RememberFileName != null)
+            {
+                //This excutes if remember it
+                richTextBox1.SaveFile(RememberFileName);
+            } else {
+                //Check to see if we don't remember File Name
+                saveAsToolStripMenuItem_Click(sender, e);
+            }
 
         }
-
-        //Event handler to Save text
+            //Event handler to Save text
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = @"C:\";
             saveFileDialog1.Title = "Save text Files";
-            saveFileDialog1.CheckFileExists = true;
-            saveFileDialog1.CheckPathExists = true;
             saveFileDialog1.DefaultExt = "txt";
             saveFileDialog1.Filter = "Text Files | *.txt";
             saveFileDialog1.FilterIndex = 2;
@@ -60,6 +71,7 @@ namespace TextEditorProject
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 richTextBox1.SaveFile(saveFileDialog1.FileName);
+                RememberFileName = saveFileDialog1.FileName;
             }
         }
 
@@ -67,10 +79,10 @@ namespace TextEditorProject
         private void fontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FontDialog dlg = new FontDialog();
-            dlg.ShowDialog();
-
+            
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                richTextBox1.Font = dlg.Font;
                 string fontName;
                 float fontSize;
                 fontName = dlg.Font.Name;
@@ -79,37 +91,24 @@ namespace TextEditorProject
             }
         }
 
+        //Setting Font Size for text
         private void fontSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (richTextBox1.SelectionFont != null)
             {
-                System.Drawing.Font currentFont = richTextBox1.SelectionFont;
-                System.Drawing.FontStyle newFontStyle;
-
-                if (richTextBox1.SelectionFont.Bold == true)
-                {
-                    newFontStyle = FontStyle.Regular;
-                }
-                else
-                {
-                    newFontStyle = FontStyle.Bold;
-                }
-
-                richTextBox1.SelectionFont = new Font(
-                   currentFont.FontFamily,
-                   currentFont.Size,
-                   newFontStyle
-                );
+                fontToolStripMenuItem_Click(sender, e);
             }
         }
 
         public override System.Drawing.Font Font { get; set; }
 
+        //Setting the options for Font Style
         private void fontStyleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (FontFamily font in FontFamily.Families) ;
+            fontToolStripMenuItem_Click(sender, e);
         }
 
+        //Setting the Font Color
         private void fontColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog1 = new ColorDialog();
@@ -123,13 +122,10 @@ namespace TextEditorProject
             }
         }
 
-        /*private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            public Control [] Find()
-            string key;
-            bool searchAllText;
-            );
-        }*/
+            
+        }
 
         private void findAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -157,10 +153,15 @@ namespace TextEditorProject
             }
         }
 
-        /*Event handler for click on About for About DropDown Menu
+        /*//Event handler for click on About for About DropDown Menu
         private void programToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Console.ShowDialog = new Dialog.ShowDialog.OK():
+            Console.openDialog1 = new Dialog.ShowDialog.OK();
+            Console.WriteLine("First Text editor that uses basic formatting features");
+            Console.WriteLine("Eric Viohl");
+            Console.WriteLine("Version 2.5");
+            Console.WriteLine("Web Development Boot Camp");
+            Console.ReadKey();
         }*/
     }
 }

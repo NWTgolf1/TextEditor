@@ -7,3 +7,4 @@ c:\users\eric\documents\visual studio 2017\Projects\TextEditorProject\TextEditor
 c:\users\eric\documents\visual studio 2017\Projects\TextEditorProject\TextEditorProject\obj\Debug\TextEditorProject.csproj.GenerateResource.Cache
 c:\users\eric\documents\visual studio 2017\Projects\TextEditorProject\TextEditorProject\obj\Debug\TextEditorProject.exe
 c:\users\eric\documents\visual studio 2017\Projects\TextEditorProject\TextEditorProject\obj\Debug\TextEditorProject.pdb
+C:\Users\Eric\documents\visual studio 2017\Projects\TextEditorProject\TextEditorProject\obj\Debug\TextEditorProject.Form2.resources

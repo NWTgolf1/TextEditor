@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Text.RegularExpressions;
 
 namespace TextEditorProject
 {
@@ -22,8 +23,6 @@ namespace TextEditorProject
         }
 
         bool wordwrap = false;
-
-        bool FindText = false;
 
         //Event handler to open a file for File DropDown Menu
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -130,13 +129,32 @@ namespace TextEditorProject
         private void findAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            /*string text = File.ReadAllText("sourcefile.txt");
+            text = Regex.Replace(text, @"(?i)(?<=^id2\s*?:\s*?)\w*?(?=\s*?$)", "NewValue2",
+                                 RegexOptions.Multiline);
+            File.WriteAllText("outputfile.txt", text);*/
+
+            
+            string Text1 = "";
+            string Text2 = "";
+            Form2 testDialog = new Form2();
+            if  (testDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                Text1 = testDialog.textBox1.Text;
+            }
+            testDialog = new Form2();
+            if (testDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                Text2 = testDialog.textBox1.Text;
+            }
+            richTextBox1.Text = richTextBox1.Text.Replace(Text1, Text2);
         }
 
-        //Event handler for click on View for View DropDown Menu
+        /*Event handler for click on View for View DropDown Menu
         private void windowThemeToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-        }
+        }*/
 
         //Event handler for Word Wrap
         private void wordWrapToolStripMenuItem_Click(object sender, EventArgs e)
@@ -159,7 +177,7 @@ namespace TextEditorProject
             Console.openDialog1 = new Dialog.ShowDialog.OK();
             Console.WriteLine("First Text editor that uses basic formatting features");
             Console.WriteLine("Eric Viohl");
-            Console.WriteLine("Version 2.5");
+            Console.WriteLine("Version 3");
             Console.WriteLine("Web Development Boot Camp");
             Console.ReadKey();
         }*/
